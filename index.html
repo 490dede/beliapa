@@ -154,14 +154,15 @@
 
 <script>
 // 1. Inisialisasi Appwrite
-const { Client, Databases, ID } = Appwrite;
+// Baris 156-163 di file index.html Anda
+const { Client, Databases, ID, Query } = Appwrite;
 const client = new Client()
-    .setEndpoint('https://sgp.cloud.appwrite.io/v1') 
+    .setEndpoint('https://sgp.cloud.appwrite.io/v1')
     .setProject('beliapa'); 
 
 const databases = new Databases(client);
-const DATABASE_ID = '69ae8aaf001fcab01e83'; 
-const COLLECTION_ID = 'users_data'; // Gunakan ID unik yang Anda copy tadi
+const DATABASE_ID = '69ae8aaf001fcab01e83'; // ID Database Anda
+const COLLECTION_ID = 'users_data'; // Gunakan nama koleksi, bukan ID angka lagi
 
 // 2. Fungsi Navigasi (Agar link biru bisa diklik)
 function tampilLogin() {
