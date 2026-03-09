@@ -1,29 +1,171 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <title>beliapa - Feed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>beliapa - Register & Login</title>
     <style>
+        /* Gaya Dasar sesuai Identitas Visual */
         body {
             font-family: 'Calibri', sans-serif;
-            background-color: #f0f2f5;
+            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
-            padding: 20px;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
         }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo {
+            color: #4285f4;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 32px;
+            margin: 5px 0;
+        }
+
+        h2.page-title {
+            font-size: 24px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .sub-text {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        /* Desain Kartu (Card) */
         .card {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group label {
+            width: 80px;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Calibri', sans-serif;
+            outline: none;
+        }
+
+        /* Tombol */
+        .btn-primary {
             width: 100%;
-            max-width: 500px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Calibri', sans-serif;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #f0f0f0;
+        }
+
+        .footer-link {
+            margin-top: 25px;
+            color: #5d5dff;
+            font-style: italic;
+            cursor: pointer;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>Selamat Datang di beliapa</h2>
-        <p>Ini adalah tampilan awal feed Anda menggunakan font Calibri.</p>
+
+    <div class="container">
+        <div id="register-section">
+            <h2 class="page-title">Halaman REGISTER</h2>
+            <h1 class="logo">beliapa</h1>
+            <p class="sub-text">Belum punya Akun? Daftar sekarang</p>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label>Nama</label>
+                    <input type="text" id="reg-name">
+                </div>
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="reg-email">
+                </div>
+                <div class="input-group">
+                    <label>Whatsapp</label>
+                    <input type="tel" id="reg-wa">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="reg-pass">
+                </div>
+                <button class="btn-primary" onclick="keLogin()">Simpan</button>
+            </div>
+            
+            <p class="footer-link" onclick="tampilLogin()">Sudah punya Akun? Masuk disini</p>
+        </div>
+
+        <div id="login-section" style="display: none;">
+            <h2 class="page-title">Halaman LOGIN</h2>
+            <h1 class="logo">beliapa</h1>
+            <p class="sub-text">Sudah punya Akun? Masuk sekarang</p>
+            
+            <div class="card">
+                <div class="input-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="login-pass">
+                </div>
+                <button class="btn-primary">Masuk</button>
+            </div>
+            
+            <p class="footer-link" onclick="tampilRegister()">Belum punya Akun? Daftar disini</p>
+        </div>
     </div>
+
+    <script>
+        // Fungsi sederhana untuk pindah halaman tanpa refresh
+        function tampilLogin() {
+            document.getElementById('register-section').style.display = 'none';
+            document.getElementById('login-section').style.display = 'block';
+        }
+
+        function tampilRegister() {
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('register-section').style.display = 'block';
+        }
+
+        function keLogin() {
+            alert("Data berhasil disimpan! Silakan login.");
+            tampilLogin();
+        }
+    </script>
 </body>
 </html>
