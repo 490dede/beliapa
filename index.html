@@ -123,7 +123,7 @@
                     <label>Password</label>
                     <input type="password" id="reg-pass">
                 </div>
-                <button class="btn-primary" onclick="keLogin()">Simpan</button>
+                <button class="btn-primary" onclick="prosesDaftar()">Simpan</button>
             </div>
             
             <p class="footer-link" onclick="tampilLogin()">Sudah punya Akun? Masuk disini</p>
@@ -153,23 +153,40 @@
     <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
 
 <script>
-const { Client, Databases, ID, Query } = Appwrite;
+// 1. Inisialisasi Appwrite
+const { Client, Databases, ID } = Appwrite;
 const client = new Client()
     .setEndpoint('https://sgp.cloud.appwrite.io/v1') 
-    .setProject('beliapa'); // Masukkan Project ID Anda
+    .setProject('beliapa'); 
 
 const databases = new Databases(client);
-const DATABASE_ID = '69ae8aaf001fcab01e83'; // Database ID Anda
-const COLLECTION_ID = '69ae8aaf001fcab01e83'; // Masukkan Collection ID Anda
+const DATABASE_ID = '69ae8aaf001fcab01e83'; 
+const COLLECTION_ID = '69ae8aaf001fcab01e83'; // Gunakan ID unik yang Anda copy tadi
 
+// 2. Fungsi Navigasi (Agar link biru bisa diklik)
+function tampilLogin() {
+    document.getElementById('register-section').style.display = 'none';
+    document.getElementById('login-section').style.display = 'block';
+}
+
+function tampilRegister() {
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('register-section').style.display = 'block';
+}
+
+// 3. Fungsi Simpan (Tombol Register)
 async function prosesDaftar() {
     const name = document.getElementById('reg-name').value;
     const email = document.getElementById('reg-email').value;
     const wa = document.getElementById('reg-wa').value;
-    const pass = document.getElementById('reg-pass').value;
+
+    // Validasi sederhana agar tidak kosong
+    if(!name || !email || !wa) {
+        alert("Mohon isi semua data!");
+        return;
+    }
 
     try {
-        // Proses simpan data ke Appwrite
         await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
             username: name,
             email: email,
@@ -179,7 +196,6 @@ async function prosesDaftar() {
         alert("Pendaftaran Berhasil! Silakan Login.");
         tampilLogin();
     } catch (error) {
-        // Menangani jika data ganda (Unique Constraint)
         if (error.code === 409) {
             alert("Maaf, Email, Username, atau WhatsApp sudah digunakan!");
         } else {
@@ -187,6 +203,10 @@ async function prosesDaftar() {
         }
     }
 }
+
+// 4. Pastikan Tombol HTML memanggil fungsi yang benar
+// Cari tag <button> di bagian Register Anda, pastikan isinya:
+// <button class="btn-primary" onclick="prosesDaftar()">Simpan</button>
 </script>
 </body>
 </html>
