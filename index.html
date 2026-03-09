@@ -150,22 +150,43 @@
         </div>
     </div>
 
-    <script>
-        // Fungsi sederhana untuk pindah halaman tanpa refresh
-        function tampilLogin() {
-            document.getElementById('register-section').style.display = 'none';
-            document.getElementById('login-section').style.display = 'block';
-        }
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@13.0.1"></script>
 
-        function tampilRegister() {
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('register-section').style.display = 'block';
-        }
+<script>
+const { Client, Databases, ID, Query } = Appwrite;
+const client = new Client()
+    .setEndpoint('https://sgp.cloud.appwrite.io/v1') 
+    .setProject('beliapa'); // Masukkan Project ID Anda
 
-        function keLogin() {
-            alert("Data berhasil disimpan! Silakan login.");
-            tampilLogin();
+const databases = new Databases(client);
+const DATABASE_ID = '69ae8aaf001fcab01e83'; // Database ID Anda
+const COLLECTION_ID = '69ae8aaf001fcab01e83'; // Masukkan Collection ID Anda
+
+async function prosesDaftar() {
+    const name = document.getElementById('reg-name').value;
+    const email = document.getElementById('reg-email').value;
+    const wa = document.getElementById('reg-wa').value;
+    const pass = document.getElementById('reg-pass').value;
+
+    try {
+        // Proses simpan data ke Appwrite
+        await databases.createDocument(DATABASE_ID, COLLECTION_ID, ID.unique(), {
+            username: name,
+            email: email,
+            whatsapp: wa
+        });
+
+        alert("Pendaftaran Berhasil! Silakan Login.");
+        tampilLogin();
+    } catch (error) {
+        // Menangani jika data ganda (Unique Constraint)
+        if (error.code === 409) {
+            alert("Maaf, Email, Username, atau WhatsApp sudah digunakan!");
+        } else {
+            alert("Terjadi kesalahan: " + error.message);
         }
-    </script>
+    }
+}
+</script>
 </body>
 </html>
